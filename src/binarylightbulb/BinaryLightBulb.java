@@ -16,6 +16,7 @@ class FindDefective extends Thread
 {
     int pivot;
     int[] intArray;
+    int[] posOfLightOff;
     FindDefective(int[] intArray)
     {
         super();
@@ -28,17 +29,31 @@ class FindDefective extends Thread
     public void run()
     {
         try
-        {
-            int[] array1 = Arrays.copyOfRange(intArray, 0, pivot + 1);
-            int[] array2 = Arrays.copyOfRange(intArray, pivot + 1, intArray.length);
-            FindDefective obj1 = new FindDefective (array1);
-            FindDefective obj2 = new FindDefective (array2);
-            
+        { //should do something when length is 1 or more
+            if (lightoff(intArray)) {
+                if (intArray.length > 2) {
+                    int[] array1 = Arrays.copyOfRange(intArray, 0, pivot + 1);
+                    int[] array2 = Arrays.copyOfRange(intArray, pivot + 1, intArray.length);
+                    FindDefective obj1 = new FindDefective(array1); //first half of split
+                    FindDefective obj2 = new FindDefective(array2); //second half of split
+                }
+                else {
+                    //do something if length == 1
+                }
+            }
         }
         catch (Exception e)
         {
             System.out.println("error caught");
         }
+    }
+    //Check if the array contains a 0.
+    private boolean lightoff (int[] intArray)
+    {
+        for (int item : intArray)
+            if (item == 0)
+                return true;
+        return false;
     }
 }
 public class BinaryLightBulb {
