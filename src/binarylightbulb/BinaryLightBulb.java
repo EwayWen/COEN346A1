@@ -5,6 +5,7 @@
  */
 package binarylightbulb;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -17,7 +18,7 @@ class FindDefective extends Thread
 {
     private int pivot;
     private int[] intArray;
-    private List<Integer> posOfLightOff;
+    private List<Integer> posOfLightOff = new ArrayList<Integer>();
     FindDefective(int[] intArray)
     {
         super();
@@ -36,7 +37,7 @@ class FindDefective extends Thread
                 {
                     posOfLightOff.add(1);
                 }
-                else if (intArray.length > 2) {
+                else {
                     int[] array1 = Arrays.copyOfRange(intArray, 0, pivot + 1);
                     int[] array2 = Arrays.copyOfRange(intArray, pivot + 1, intArray.length);
                     FindDefective obj1 = new FindDefective(array1); //first half of split
@@ -98,7 +99,7 @@ public class BinaryLightBulb {
                 System.out.println("There are no burnt light bulbs");
             else
                 for(int item: listObj)
-                    System.out.println ("The light bulb is off at : " + (item+1));
+                    System.out.println ("The light bulb is off at : " + (item));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
